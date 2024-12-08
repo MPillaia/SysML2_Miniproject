@@ -24,6 +24,8 @@ services:
     - mongo
     volumes:
     - blob-storage:/blob-local-storage
+    - ${BASE_DIR}/src:/usr/app/src
+    - ${BASE_DIR}/src:/usr/app/src
     networks:
     - database
     - frontend
@@ -36,7 +38,7 @@ services:
     #ports:
     #- 27017:27017 # Uncomment to expose mongo-port on host
     volumes:
-    - mongo-db:/data/db
+    - ${BASE_DIR}/db:/data/db
     networks:
     - database
 volumes:

@@ -1,0 +1,105 @@
+package 'RequirementsDiagrams' {
+	part def RequirementsDiagram;
+	part def FunctionalRequirements;
+	part def NonFunctionalRequirements;
+	part def FunctionalRequirement{
+		attribute description : String;
+	};
+	part def PerformanceRequirement{
+		attribute description : String;
+	};
+	part def InterfaceRequirement{
+		attribute description : String;
+	};
+	part def DesignConstraint{
+		attribute description : String;
+	};
+	part def PhysicalRequirement{
+		attribute description : String;
+	};
+	part def TestCase{
+		attribute description : String;
+	};
+	part def RequirementsConnection;
+	part def FunctionalRequirementConnection;
+	part def NonFunctionalRequirementConnection;
+	part def TestCaseConnection{
+		attribute label : String;
+	};
+	part def PerformanceRequirementConnection{
+		attribute label : String;
+	};
+	part def InterfaceRequirementConnection{
+		attribute label : String;
+	};
+	part def DesignConstraintConnection{
+		attribute label : String;
+	};
+	part def PhysicalRequirementConnection{
+		attribute label : String;
+	};
+
+	part FunctionalRequirement : FunctionalRequirement {
+		attribute description = "";
+	}
+	part PhysicalRequirement1 : PhysicalRequirement {
+		attribute description = "";
+	}
+	part PhysicalRequirement : PhysicalRequirement {
+		attribute description = "";
+	}
+	part PerformanceRequirement : PerformanceRequirement {
+		attribute description = "";
+	}
+	part TestCase : TestCase {
+		attribute description = "";
+	}
+	part RequirementsDiagram : RequirementsDiagram {
+	}
+	part FunctionalRequirements : FunctionalRequirements {
+	}
+	part NonFunctionalRequirements : NonFunctionalRequirements {
+	}
+	part InterfaceRequirement : InterfaceRequirement {
+		attribute description = "";
+	}
+	part InterfaceRequirement1 : InterfaceRequirement {
+		attribute description = "";
+	}
+	part FunctionalRequirement1 : FunctionalRequirement {
+		attribute description = "";
+	}
+	part PhysicalRequirementConnection : PhysicalRequirementConnection {
+		attribute label = "label";
+		connect PhysicalRequirement.PhysicalRequirement1 to PhysicalRequirement.PhysicalRequirement;
+	}
+	part NonFunctionalRequirementConnection : NonFunctionalRequirementConnection {
+		connect PhysicalRequirement.PhysicalRequirement to NonFunctionalRequirements.NonFunctionalRequirements;
+	}
+	part NonFunctionalRequirementConnection : NonFunctionalRequirementConnection {
+		connect PerformanceRequirement.PerformanceRequirement to NonFunctionalRequirements.NonFunctionalRequirements;
+	}
+	part RequirementsConnection : RequirementsConnection {
+		connect FunctionalRequirements.FunctionalRequirements to RequirementsDiagram.RequirementsDiagram;
+	}
+	part TestCaseConnection : TestCaseConnection {
+		attribute label = "label";
+		connect TestCase.TestCase to FunctionalRequirement.FunctionalRequirement;
+	}
+	part RequirementsConnection : RequirementsConnection {
+		connect NonFunctionalRequirements.NonFunctionalRequirements to RequirementsDiagram.RequirementsDiagram;
+	}
+	part NonFunctionalRequirementConnection : NonFunctionalRequirementConnection {
+		connect InterfaceRequirement.InterfaceRequirement to NonFunctionalRequirements.NonFunctionalRequirements;
+	}
+	part InterfaceRequirementConnection : InterfaceRequirementConnection {
+		attribute label = "label";
+		connect InterfaceRequirement.InterfaceRequirement1 to InterfaceRequirement.InterfaceRequirement;
+	}
+	part FunctionalRequirementConnection : FunctionalRequirementConnection {
+		connect FunctionalRequirement.FunctionalRequirement to FunctionalRequirements.FunctionalRequirements;
+	}
+	part FunctionalRequirementConnection : FunctionalRequirementConnection {
+		connect FunctionalRequirement.FunctionalRequirement1 to FunctionalRequirements.FunctionalRequirements;
+	}
+}

@@ -8,7 +8,32 @@
     "addons": {},
     "decorators": {},
     "layouts": {},
-    "plugins": {},
+    "plugins": {
+      "parametric_write": {
+        "src": "src/plugins/parametric_write",
+        "test": "test/plugins/parametric_write"
+      },
+      "parametric_recreate": {
+        "src": "src/plugins/parametric_recreate",
+        "test": "test/plugins/parametric_recreate"
+      },
+      "requirements_write": {
+        "src": "src/plugins/requirements_write",
+        "test": "test/plugins/requirements_write"
+      },
+      "requirements_recreate": {
+        "src": "src/plugins/requirements_recreate",
+        "test": "test/plugins/requirements_recreate"
+      },
+      "IBD_write": {
+        "src": "src/plugins/IBD_write",
+        "test": "test/plugins/IBD_write"
+      },
+      "IBD_recreate": {
+        "src": "src/plugins/IBD_recreate",
+        "test": "test/plugins/IBD_recreate"
+      }
+    },
     "routers": {},
     "visualizers": {}
   },
