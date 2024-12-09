@@ -32,7 +32,7 @@ class requirements_recreate(PluginBase):
   def recreate(self, text_input):
       import re
   
-      root_node = self.active_node
+      active_node = self.active_node
       core = self.core
       META = self.META
   
@@ -51,7 +51,7 @@ class requirements_recreate(PluginBase):
               type_name = parts[1].split(' ')[0]
 
               # create node
-              current_node = core.create_node({'parent': root_node, 'base': META[type_name]})
+              current_node = core.create_node({'parent': active_node, 'base': META[type_name]})
               core.set_attribute(current_node, 'name', name)
 
               # connection or requirements node
