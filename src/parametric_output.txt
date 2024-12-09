@@ -23,7 +23,7 @@ package 'ParametricDiagrams' {
 		attribute equation = "a+c-d";
 		part d : Variable;
 		part a : Variable;
-		part c : Variable;
+		part b : Variable;
 	}
 
 	part c : Parameter;
@@ -37,9 +37,9 @@ package 'ParametricDiagrams' {
 		attribute variable_type = "int";
 		connect Constraint.C2.a to Constraint.C1.a;
 	}
-	part c : Connection {
+	part b : Connection {
 		attribute variable_type = "int";
-		connect Parameter.c to Constraint.C2.c;
+		connect Parameter.c to Constraint.C2.b;
 	}
 	part d : Connection {
 		attribute variable_type = "int";

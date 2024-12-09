@@ -8,50 +8,51 @@ package 'InternalBlockDiagrams' {
 	part def BlockConnection;
 	part def Dependancy;
 
+	part BlockConnection1 : BlockConnection {
+		connect OBlock1.Port to OBlock2.Port;
+	}
+
+	part OBlock2 : Block {
+		attribute participants = "None";
+		part Port : Port;
+		part Test2 : Block {
+			attribute participants = "None";
+		}
+
+	}
+
+
 	part Outer : Constraint {
 		attribute participants = "";
-		part Dependancy2 : Dependancy {
-			connect Inner to BlockConnection2;
-		}
-
-		part IBlock1 : Block {
-			attribute participants = "None";
-			part X : Port;
-		}
-
-		part IBlock2 : Block {
-			attribute participants = "Test2";
-			part Q : Port;
-			part Y : Port;
-		}
-
 		part BlockConnection2 : BlockConnection {
-			connect IBlock1.X to IBlock2.Y;
+			connect IBlock1.P to IBlock2.Y;
 		}
 
 		part Inner : Constraint {
 			attribute participants = "Test";
 		}
 
+		part Dependancy2 : Dependancy {
+			connect Inner to BlockConnection2;
+		}
+
+		part IBlock1 : Block {
+			attribute participants = "None";
+			part P : Port;
+		}
+
+		part IBlock2 : Block {
+			attribute participants = "Test2";
+			part H : Port;
+			part Y : Port;
+		}
+
 	}
 
 
 
 
 
-
-	part OBlock2 : Block {
-		attribute participants = "None";
-		part Port : Port;
-	}
-
-	part BlockConnection1 : BlockConnection {
-		connect OBlock1.Port to OBlock2.Port;
-	}
-
-	part Dependancy : Dependancy {
-		connect Outer to BlockConnection1;
-	}
 
 	part OBlock1 : Block {
 		attribute participants = "None";
@@ -62,4 +63,8 @@ package 'InternalBlockDiagrams' {
 
 	}
 
+
+	part Dependancy : Dependancy {
+		connect Outer to BlockConnection1;
+	}
 

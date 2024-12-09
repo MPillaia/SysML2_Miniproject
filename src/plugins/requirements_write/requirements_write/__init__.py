@@ -30,12 +30,14 @@ class requirements_write(PluginBase):
             name = core.get_attribute(node, 'name')
             meta_type = core.get_attribute(meta_node, 'name')
 
+            # requirements nodes
             if meta_type in ['FunctionalRequirement', 'PerformanceRequirement', 'InterfaceRequirement', 'DesignConstraint', 'PhysicalRequirement', 'TestCase']:
                 description = core.get_attribute(node, 'description')
                 nodes[name] = {'type': meta_type, 'description': description}
+            # key setup nodes
             elif meta_type in ['RequirementsDiagram', 'FunctionalRequirements', 'NonFunctionalRequirements']:
                 nodes[name] = {'type': meta_type}
-            elif 'Connection' in meta_type:
+            elif 'Connection' in meta_type: # all connections have 'Connection' in them
                 src = core.get_pointer_path(node, 'src')
                 dst = core.get_pointer_path(node, 'dst')
                 label = core.get_attribute(node, 'label') if 'label' in core.get_attribute_names(node) else None
@@ -61,22 +63,25 @@ class requirements_write(PluginBase):
             "DesignConstraintConnection", "PhysicalRequirementConnection"
         ]
 
+        # create templating
         for part in part_defs:
             output += f"\tpart def {part}"
             if part in ["FunctionalRequirement", "PerformanceRequirement", "InterfaceRequirement", "DesignConstraint", "PhysicalRequirement", "TestCase"]:
                 output += "{\n\t\tattribute description : String;\n\t}"
             elif "Connection" in part and part != "RequirementsConnection" and part != "FunctionalRequirementConnection" and part != "NonFunctionalRequirementConnection":
-                output += "{\n\t\tattribute label : String;\n\t}"
+                output += "{\n\t\tattribute label : String;\n\t}" # only some have attributes
             output += ";\n"
 
         output += "\n"
 
+        # requirements nodes
         for name, data in nodes.items():
             output += f"\tpart {name} : {data['type']} {{\n"
             if 'description' in data:
                 output += f"\t\tattribute description = \"{data['description']}\";\n"
             output += "\t}\n"
 
+        # set up connections
         for data in connections:
             output += f"\tpart {data['name']} : {data['type']} {{\n"
             if data['label']:
@@ -90,11 +95,12 @@ class requirements_write(PluginBase):
         return output
 
     def get_node_reference(self, core, node):
+        # get src or dst format
         meta_type = core.get_meta_type(node)
         node_name = core.get_attribute(node, 'name')
         parent = core.get_parent(node)
-        parent_name = core.get_attribute(parent, 'name') if parent else None
-        parent_type = core.get_attribute(core.get_meta_type(parent), 'name') if parent else None
+        parent_name = core.get_attribute(parent, 'name')
+        parent_type = core.get_attribute(core.get_meta_type(parent), 'name')
 
         if parent_type in ['FunctionalRequirements', 'NonFunctionalRequirements', 'RequirementsDiagram']:
             return f"{parent_type}.{parent_name}"

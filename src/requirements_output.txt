@@ -39,24 +39,19 @@ package 'RequirementsDiagrams' {
 		attribute label : String;
 	};
 
-	part FunctionalRequirement : FunctionalRequirement {
+	part FunctionalRequirement1 : FunctionalRequirement {
 		attribute description = "";
 	}
 	part PhysicalRequirement1 : PhysicalRequirement {
 		attribute description = "";
 	}
-	part PhysicalRequirement : PhysicalRequirement {
-		attribute description = "";
+	part TestCase : PhysicalRequirement {
+		attribute description = "sample";
 	}
-	part PerformanceRequirement : PerformanceRequirement {
-		attribute description = "";
-	}
-	part TestCase : TestCase {
+	part PhysicalRequirement4 : PhysicalRequirement {
 		attribute description = "";
 	}
 	part RequirementsDiagram : RequirementsDiagram {
-	}
-	part FunctionalRequirements : FunctionalRequirements {
 	}
 	part NonFunctionalRequirements : NonFunctionalRequirements {
 	}
@@ -66,7 +61,21 @@ package 'RequirementsDiagrams' {
 	part InterfaceRequirement1 : InterfaceRequirement {
 		attribute description = "";
 	}
-	part FunctionalRequirement1 : FunctionalRequirement {
+	part PhysicalRequirement : PhysicalRequirement {
+		attribute description = "";
+	}
+	part PerformanceRequirement : PerformanceRequirement {
+		attribute description = "";
+	}
+	part FunctionalRequirement : FunctionalRequirement {
+		attribute description = "";
+	}
+	part FunctionalRequirements : FunctionalRequirements {
+	}
+	part TestCase3 : TestCase {
+		attribute description = "";
+	}
+	part TestCase1 : TestCase {
 		attribute description = "";
 	}
 	part PhysicalRequirementConnection : PhysicalRequirementConnection {
@@ -76,15 +85,16 @@ package 'RequirementsDiagrams' {
 	part NonFunctionalRequirementConnection : NonFunctionalRequirementConnection {
 		connect PhysicalRequirement.PhysicalRequirement to NonFunctionalRequirements.NonFunctionalRequirements;
 	}
-	part NonFunctionalRequirementConnection : NonFunctionalRequirementConnection {
-		connect PerformanceRequirement.PerformanceRequirement to NonFunctionalRequirements.NonFunctionalRequirements;
-	}
-	part RequirementsConnection : RequirementsConnection {
-		connect FunctionalRequirements.FunctionalRequirements to RequirementsDiagram.RequirementsDiagram;
-	}
 	part TestCaseConnection : TestCaseConnection {
+		attribute label = "label2";
+		connect TestCase.TestCase1 to PerformanceRequirement.PerformanceRequirement;
+	}
+	part NonFunctionalRequirementConnection : NonFunctionalRequirementConnection {
+		connect PhysicalRequirement.TestCase to NonFunctionalRequirements.NonFunctionalRequirements;
+	}
+	part PhysicalRequirementConnection : PhysicalRequirementConnection {
 		attribute label = "label";
-		connect TestCase.TestCase to FunctionalRequirement.FunctionalRequirement;
+		connect PhysicalRequirement.PhysicalRequirement4 to PhysicalRequirement.TestCase;
 	}
 	part RequirementsConnection : RequirementsConnection {
 		connect NonFunctionalRequirements.NonFunctionalRequirements to RequirementsDiagram.RequirementsDiagram;
@@ -93,13 +103,23 @@ package 'RequirementsDiagrams' {
 		connect InterfaceRequirement.InterfaceRequirement to NonFunctionalRequirements.NonFunctionalRequirements;
 	}
 	part InterfaceRequirementConnection : InterfaceRequirementConnection {
-		attribute label = "label";
+		attribute label = "test";
 		connect InterfaceRequirement.InterfaceRequirement1 to InterfaceRequirement.InterfaceRequirement;
+	}
+	part NonFunctionalRequirementConnection : NonFunctionalRequirementConnection {
+		connect PerformanceRequirement.PerformanceRequirement to NonFunctionalRequirements.NonFunctionalRequirements;
+	}
+	part RequirementsConnection : RequirementsConnection {
+		connect FunctionalRequirements.FunctionalRequirements to RequirementsDiagram.RequirementsDiagram;
+	}
+	part FunctionalRequirementConnection : FunctionalRequirementConnection {
+		connect FunctionalRequirement.FunctionalRequirement1 to FunctionalRequirements.FunctionalRequirements;
 	}
 	part FunctionalRequirementConnection : FunctionalRequirementConnection {
 		connect FunctionalRequirement.FunctionalRequirement to FunctionalRequirements.FunctionalRequirements;
 	}
-	part FunctionalRequirementConnection : FunctionalRequirementConnection {
-		connect FunctionalRequirement.FunctionalRequirement1 to FunctionalRequirements.FunctionalRequirements;
+	part TestCaseConnection : TestCaseConnection {
+		attribute label = "label";
+		connect TestCase.TestCase3 to FunctionalRequirement.FunctionalRequirement;
 	}
 }

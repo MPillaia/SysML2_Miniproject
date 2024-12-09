@@ -26,11 +26,14 @@ class parametric_write(PluginBase):
         parameters = []
         connections = []
 
+        # Function to create log of each note
         def at_node(node):
+            # get meta node type
             meta_node = core.get_base_type(node)
             name = core.get_attribute(node, 'name')
             meta_type = core.get_attribute(meta_node, 'name') if meta_node else 'undefined'
 
+            # get key attributes for each type
             if meta_type == 'Constraint':
                 equation = core.get_attribute(node, 'equation')
                 variables = [core.get_attribute(child, 'name') for child in core.load_children(node)]
@@ -48,6 +51,7 @@ class parametric_write(PluginBase):
                     'dst': dst
                 })
 
+        # traversal
         self.util.traverse(active_node, at_node)
 
         output = self.generate_output(constraints, parameters, connections)
@@ -59,27 +63,30 @@ class parametric_write(PluginBase):
     def generate_output(self, constraints, parameters, connections):
         logger = self.logger
         core = self.core
+
+        # templating
         output = "package 'ParametricDiagrams' {\n"
 
         output += "\tpart def Constraint{\n\t\tattribute equation : String;\n\t\tpart def Variable;\n\t}\n"
         output += "\tpart def Parameter;\n"
         output += "\tpart def Connection{\n\t\tattribute variable_type : String;\n\t}\n\n"
 
-        for name, data in constraints.items():
+        for name, data in constraints.items(): # set up constraints
             output += f"\tpart {name} : Constraint {{\n"
             output += f"\t\tattribute equation = \"{data['equation']}\";\n"
             for var in data['variables']:
                 output += f"\t\tpart {var} : Variable;\n"
             output += "\t}\n\n"
 
-        for param in parameters:
+        for param in parameters: # set up parameters
             output += f"\tpart {param} : Parameter;\n"
         output += "\n"
 
-        for conn in connections:
+        for conn in connections: # set up connections
             output += f"\tpart {conn['name']} : Connection {{\n"
             output += f"\t\tattribute variable_type = \"{conn['variable_type']}\";\n"
 
+            # load src and dst, get proper format for 'connect' keyword
             src_node = core.load_by_path(self.root_node, conn['src'])
             dst_node = core.load_by_path(self.root_node, conn['dst'])
 
@@ -93,9 +100,11 @@ class parametric_write(PluginBase):
         return output
       
     def get_node_reference(self, core, node):
+        # get type and name
         meta_type = core.get_meta_type(node)
         node_name = core.get_attribute(node, 'name')
 
+        # set up proper 'connect' format
         if core.get_attribute(meta_type, 'name') == 'Parameter':
             return f"Parameter.{node_name}"
         else:
